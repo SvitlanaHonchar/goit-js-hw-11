@@ -44,6 +44,14 @@ function onSubmitLoadMore(e) {
       galleryListEl.insertAdjacentHTML('beforeend', createGalleryCards(data));
     })
     .catch(err => console.dir(err));
+
+  //   let counter = 40;
+  //   let photoCardsAll = document.querySelectorAll('.photo-card');
+  //   counter += photoCardsAll.length;
+
+  //   if (counter === pixabayAPI.totalHits) {
+  //     loadMoreBtn.classList.add('is-hidden');
+  //   }
 }
 
 // events

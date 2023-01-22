@@ -5,7 +5,7 @@ export class PixabayAPI {
   static API_KEY = '33034964-6791c4166c041f83734802d57';
 
   constructor() {
-    (this.page = 1), (this.query = null);
+    (this.page = 1), (this.query = null), (this.totalHits = null);
   }
 
   async getPhotos() {
@@ -22,6 +22,8 @@ export class PixabayAPI {
     const response = await axios.get(
       `${PixabayAPI.BASE_URL}/api/?${searchParams}`
     );
+    this.totalHits = response.data.totalHits;
+    // console.log(this.totalHits);
     return response.data.hits;
   }
 }
