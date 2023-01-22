@@ -4,12 +4,14 @@ export class PixabayAPI {
   static BASE_URL = 'https://pixabay.com';
   static API_KEY = '33034964-6791c4166c041f83734802d57';
 
-  constructor() {}
+  constructor() {
+    (this.page = 1), (this.query = null);
+  }
 
-  async getPhotos(query) {
+  async getPhotos() {
     const searchParams = new URLSearchParams({
-      q: query,
-      page: 1,
+      q: this.query,
+      page: this.page,
       per_page: 40,
       image_type: 'photo',
       orientation: 'horizontal',
