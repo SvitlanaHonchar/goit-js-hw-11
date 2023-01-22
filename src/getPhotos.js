@@ -8,7 +8,7 @@ export class PixabayAPI {
 
   async getPhotos(query) {
     const searchParams = new URLSearchParams({
-      query: query,
+      q: query,
       page: 1,
       per_page: 40,
       image_type: 'photo',
