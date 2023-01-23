@@ -53,6 +53,16 @@ function onSubmitLoadMore(e) {
       gallery.refresh();
 
       let photoCardsAll = document.querySelectorAll('.photo-card');
+
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+
       if (photoCardsAll.length === pixabayAPI.totalHits) {
         loadMoreBtn.classList.add('is-hidden');
         Notiflix.Notify.info(
