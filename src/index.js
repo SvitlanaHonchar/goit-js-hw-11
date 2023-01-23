@@ -1,5 +1,7 @@
 import { PixabayAPI } from './getPhotos';
 import { createGalleryCards } from './createGalleryCards';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const pixabayAPI = new PixabayAPI();
 import Notiflix from 'notiflix';
@@ -12,6 +14,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 function onSubmitForm(e) {
   e.preventDefault();
   pixabayAPI.query = e.target.elements.searchQuery.value.trim();
+  pixabayAPI.page = 1;
   pixabayAPI
     .getPhotos()
     .then(data => {
@@ -29,7 +32,12 @@ function onSubmitForm(e) {
       if (data.length >= 40) {
         loadMoreBtn.classList.remove('is-hidden');
       }
+      Notiflix.Notify.success(
+        `Hooray! We found ${pixabayAPI.totalHits} images.`
+      );
       galleryListEl.innerHTML = createGalleryCards(data);
+      gallery.refresh();
+
       console.dir(data);
     })
     .catch(err => console.dir(err));
@@ -42,18 +50,34 @@ function onSubmitLoadMore(e) {
     .getPhotos()
     .then(data => {
       galleryListEl.insertAdjacentHTML('beforeend', createGalleryCards(data));
+      gallery.refresh();
+
+      let photoCardsAll = document.querySelectorAll('.photo-card');
+      if (photoCardsAll.length === pixabayAPI.totalHits) {
+        loadMoreBtn.classList.add('is-hidden');
+        Notiflix.Notify.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
     })
     .catch(err => console.dir(err));
+}
 
-  //   let counter = 40;
-  //   let photoCardsAll = document.querySelectorAll('.photo-card');
-  //   counter += photoCardsAll.length;
+// SimpleLightbox
+let gallery = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
-  //   if (counter === pixabayAPI.totalHits) {
-  //     loadMoreBtn.classList.add('is-hidden');
-  //   }
+function onGalleryImgClick(e) {
+  e.preventDefault();
+  const { target } = e;
+  if (target.nodeName !== 'IMG') {
+    return;
+  }
 }
 
 // events
 formEl.addEventListener('submit', onSubmitForm);
 loadMoreBtn.addEventListener('click', onSubmitLoadMore);
+galleryListEl.addEventListener('click', onGalleryImgClick);

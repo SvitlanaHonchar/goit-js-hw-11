@@ -1,6 +1,6 @@
 export function createGalleryCards(cardInfo) {
   const gallery = cardInfo.map(el => {
-    return `<div class="photo-card">
+    return `<a href="${el.largeImageURL}"><div class="photo-card">
   <img src="${el.webformatURL}" alt="${el.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
@@ -20,7 +20,7 @@ export function createGalleryCards(cardInfo) {
       ${el.downloads}
     </p>
   </div>
-</div>`;
+</div></a>`;
   });
 
   return gallery.join('');
