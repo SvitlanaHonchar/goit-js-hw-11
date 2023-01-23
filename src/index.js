@@ -12,6 +12,8 @@ const loadMoreBtn = document.querySelector('.load-more');
 
 //пошук зображень
 function onSubmitForm(e) {
+  loadMoreBtn.classList.add('is-hidden');
+
   e.preventDefault();
   pixabayAPI.query = e.target.elements.searchQuery.value.trim();
   pixabayAPI.page = 1;
@@ -29,15 +31,15 @@ function onSubmitForm(e) {
         return;
       }
 
-      if (data.length >= 40) {
-        loadMoreBtn.classList.remove('is-hidden');
-      }
       Notiflix.Notify.success(
         `Hooray! We found ${pixabayAPI.totalHits} images.`
       );
       galleryListEl.innerHTML = createGalleryCards(data);
       gallery.refresh();
 
+      if (data.length >= 40) {
+        loadMoreBtn.classList.remove('is-hidden');
+      }
       console.dir(data);
     })
     .catch(err => console.dir(err));
