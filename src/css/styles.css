@@ -1,5 +1,6 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(205, 205, 255);
 }
 
 p {
@@ -52,39 +53,64 @@ button {
 }
 
 .gallery {
-  margin-top: 20px;
+  position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 10px;
 }
 
-.photo-card {
-  padding-bottom: 5px;
-
-  border: 1px solid rgb(0 0 0 / 12%);
-  border-radius: 4px;
-  box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
-    0px 2px 1px rgb(0 0 0 / 20%);
+.gallery .photo-card {
+  position: relative;
+  width: 20rem;
+  height: 20rem;
+  margin: 3rem;
 }
 
-img {
+.gallery .photo-card:hover .imgBox {
+  transform: translate(-1.5rem, -1.5rem);
+}
+
+.gallery .photo-card:hover .info {
+  transform: translate(2rem, 2rem);
+}
+
+.imgBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+}
+
+.imgBox img {
+  width: 20rem;
+  height: 20rem;
   object-fit: cover;
-  width: 300px;
-  height: 200px;
+  resize: both;
 }
 
 .info {
+  width: 20rem;
+  height: 20rem;
+  /* object-fit: cover; */
+  /* resize: both; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: flex-end;
   gap: 5px;
 
   font-size: 14px;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.5s ease-in-out;
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10px;
 }
