@@ -64,7 +64,7 @@ button {
   position: relative;
   width: 20rem;
   height: 20rem;
-  margin: 3rem;
+  margin: 2rem;
 }
 
 .gallery .photo-card:hover .imgBox {
